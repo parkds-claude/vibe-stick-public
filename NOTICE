@@ -1,0 +1,43 @@
+vibe-stick — third-party notices / 외부 구성 요소 안내
+
+This repository ships source code only (no compiled firmware binaries).
+이 저장소는 소스만 배포하며 컴파일된 펌웨어 파일은 넣지 않는다.
+
+Libraries fetched at build time by PlatformIO (not included in this repository):
+빌드할 때 PlatformIO 가 내려받는 라이브러리(저장소에 포함되지 않음):
+
+  - M5Unified 0.2.25 (and M5GFX)   — MIT License, Copyright (c) 2021 M5Stack
+  - NimBLE-Arduino 2.5.1           — Apache License 2.0, Copyright 2020-2026 Ryan Powell and contributors
+  - arduino-esp32 (framework-arduinoespressif32 2.0.17) — LGPL-2.1-or-later, Espressif Systems
+  - platform-espressif32 6.12.0    — Apache License 2.0, PlatformIO
+
+Device and trademarks / 기기와 상표:
+  M5StickC Plus and Mini JoyC HAT are products of M5Stack. "Claude" and "Claude Code" are
+  trademarks of Anthropic, PBC. "VS Code" is a trademark of Microsoft. macOS is a trademark of
+  Apple Inc. This is an independent hobby project and is not affiliated with, endorsed by, or
+  sponsored by any of them.
+  M5StickC Plus·Mini JoyC HAT 은 M5Stack 의 제품이고, Claude·Claude Code 는 Anthropic, VS Code 는
+  Microsoft, macOS 는 Apple 의 상표다. 이 프로젝트는 어느 회사와도 관계없는 개인 취미 프로젝트다.
+
+On-screen character — NOT covered by the MIT license / 화면 캐릭터 — MIT 예외:
+  The MIT license (LICENSE) covers the code and the five original mascots (Stick, Keycap, Cat,
+  Robot, Sprout). The default mascot named "Claude" (src/logic/pixel_art.cpp, CLAUDE_ROWS) is an
+  unofficial pixel-art rendition of the Claude Code character made by the author for personal use.
+  It is NOT licensed under MIT; rights remain with Anthropic, PBC. It is not endorsed by Anthropic.
+  Do not use it commercially or in hardware you sell or distribute — build with -DMASCOT_ID=Cat (or
+  another original mascot) instead. It will be removed from this repository on request.
+  MIT 라이선스(LICENSE)는 코드와 자체 캐릭터 다섯(스틱이·키캡이·까망이·삐삐·새싹이)에만 적용된다.
+  기본 마스코트 "Claude"(src/logic/pixel_art.cpp 의 CLAUDE_ROWS)는 작성자가 개인용으로 Claude Code 캐릭터를
+  픽셀로 옮긴 비공식 팬아트로, MIT 로 허락되지 않으며 권리는 Anthropic 에 있다. Anthropic 의 승인을 받은
+  것이 아니다. 상업적으로 쓰거나 판매·배포하는 기기에 넣지 말고 -DMASCOT_ID=Cat 등 자체 캐릭터로 굽는다.
+  요청이 있으면 이 저장소에서 제거한다.
+
+Fonts / 글꼴:
+  The on-device 5x7 bitmap font uses classic pixel letterforms, hand-entered by the author; no font
+  file is copied or redistributed.
+  기기의 5x7 점 글꼴은 고전적인 픽셀 글자 모양을 직접 입력한 것이며 글꼴 파일을 복사·재배포하지 않는다.
+
+Tools / 도구:
+  tools/unstick.py imports esptool (GPL-2.0) from the user's own PlatformIO installation
+  (~/.platformio/packages/tool-esptoolpy); esptool is not included in this repository.
+  tools/unstick.py 는 사용자 PlatformIO 에 설치된 esptool(GPL-2.0)을 불러 쓸 뿐 포함하지 않는다.

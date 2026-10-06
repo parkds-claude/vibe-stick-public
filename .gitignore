@@ -1,0 +1,18 @@
+# PlatformIO 빌드 산출물
+.pio/
+build/
+.vscode/
+
+# 펌웨어 백업·덤프 (용량 큼, 기기별 고유)
+backups/
+*.bin
+
+# 비밀값
+.env
+secrets.h
+
+# macOS
+.DS_Store
+
+# 큰 영상 결과물(mp4)은 저장소에 넣지 않는다
+docs/threads/*/real_demo*.mp4
