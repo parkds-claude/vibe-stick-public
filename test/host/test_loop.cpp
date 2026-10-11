@@ -9,7 +9,7 @@ using namespace inputcfg;
 static const int PUSH = 127;
 
 // 앞 버튼을 누르면 OK! 가 ACTION_SHOW_MS 쯤 보였다가 대기 화면으로 돌아간다.
-// (2026-10-05 실물 결함: 동작 장면이 0초 만에 사라져 HI! 만 보였다)
+// (실물 결함: 동작 장면이 0초 만에 사라져 HI! 만 보였다)
 static void test_action_scene_stays_visible() {
   DevSim d;
   d.run([](uint32_t t) {

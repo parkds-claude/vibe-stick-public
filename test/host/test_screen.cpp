@@ -530,7 +530,7 @@ static void test_state_no_stick_strip() {
   CHECK(st.poll(30, f) && !f.noStick);
 }
 
-// ---- 말하기는 켜져 있는 동안 TALK 를 유지한다 (사용자 요청 2026-10-05) ----
+// ---- 말하기는 켜져 있는 동안 TALK 를 유지한다 (사용자 요청) ----
 
 static const uint32_t TALK_MAX = ScreenState::TALK_MAX_MS;
 
@@ -672,7 +672,7 @@ static void test_state_events_without_scene() {
 
 // 기기에서는 동작을 알리는 시각(키를 다 보낸 뒤)이 화면을 그릴 때 쓰는 시각(그 틱의 시작)보다
 // 조금 늦다. 그래도 동작 장면이 떠야 한다 — 처음 구현은 이때 "이미 시간이 지났다"고 보고
-// 곧바로 대기 화면으로 돌아가 버렸다(2026-10-05 실물: "HI만 떠 있음").
+// 곧바로 대기 화면으로 돌아가 버렸다(실물: "HI만 떠 있음").
 static void test_state_action_survives_stale_poll_time() {
   ScreenState st;
   st.setLink(LinkState::Ready);

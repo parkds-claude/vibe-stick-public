@@ -1,0 +1,34 @@
+# vibe-stick CoreS3 판의 빌드 설정(M5Stack CoreS3: ESP32-S3, 플래시 16MB)
+CONFIG_IDF_TARGET="esp32s3"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# USB 는 키보드·마이크가 쓴다 → ESP-IDF 의 글자 출력(콘솔)은 UART 로 둔다(USB 로 내보내면 충돌).
+# 우리 로그는 USB 의 로그 포트로 따로 보낸다(usb_dev.cpp).
+CONFIG_ESP_CONSOLE_UART_DEFAULT=y
+# 칩의 자동 굽기 통로(USB-Serial-JTAG)의 시계를 끄지 않는다. 이것이 꺼지면 내려받기 모드로
+# 돌아가도 컴퓨터에 보이지 않는다(download_mode.c). 기본값이 y 이지만 기대는 값이라 적어 둔다.
+CONFIG_USJ_ENABLE_USB_SERIAL_JTAG=y
+CONFIG_ESP_CONSOLE_SECONDARY_USB_SERIAL_JTAG=y
+
+# 블루투스(저전력)로 키를 보낸다 — 선을 뽑았을 때(D59). 호스트는 NimBLE.
+# 결합(짝) 정보는 재시작해도 남아야 한다(NVS 에 저장) — 지우는 것은 기기의 손짓(확인+취소 3초)뿐이다.
+CONFIG_BT_ENABLED=y
+CONFIG_BT_NIMBLE_ENABLED=y
+CONFIG_BT_NIMBLE_NVS_PERSIST=y
+# 블루투스 부품의 오류·경고 줄을 켠다. 그 줄들은 기기 속 기록(D67, vibe:hist)으로 들어간다(usb_dev.cpp 의 logHook).
+# 연결은 됐는데 키가 나가지 않는 까닭(보내기 실패의 번호)을 읽으려고 켰다. 호스트(NimBLE)의 잔소리는 줄인다.
+CONFIG_NIMBLE_CPP_LOG_LEVEL_WARNING=y
+CONFIG_BT_NIMBLE_LOG_LEVEL_WARNING=y
+
+# 1ms 단위로 쉰다(10ms 틱 처리와 키를 누르고 있는 시간이 정확해야 한다).
+CONFIG_FREERTOS_HZ=1000
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# CPU 160MHz (D16: 이 용도에 240MHz 는 과하다)
+CONFIG_ESP_DEFAULT_CPU_FREQ_MHZ_160=y
+
+# 어떤 태스크가 CPU 를 쥐고 놓지 않으면(멈춤) 경고만 찍지 말고 재시작한다. 재시작이 연달아
+# 일어나면 내려받기 모드로 물러나므로(boot_guard, D48) 손 없이 고칠 수 있다.
+CONFIG_ESP_TASK_WDT_PANIC=y

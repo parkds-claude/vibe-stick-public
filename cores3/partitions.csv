@@ -1,0 +1,5 @@
+# 이름,   종류, 세부,    위치,     크기
+# 앱 하나만 둔다(OTA 없음 — 펌웨어 갱신은 USB 로만, D7 과 같다). 16MB 가운데 앞 3MB 만 쓴다.
+nvs,      data, nvs,     0x9000,   0x6000,
+phy_init, data, phy,     0xf000,   0x1000,
+factory,  app,  factory, 0x10000,  0x300000,

@@ -4,7 +4,7 @@
 #include "events.h"
 #include "link_state.h"
 
-// 화면에 보여줄 장면 (설계서 2026-10-05 2.2)
+// 화면에 보여줄 장면 (설계서 2.2)
 enum class Scene : uint8_t {
   // 대기 장면: 연결 상태에 따라 정해진다
   Ready,       // 연결되어 대기

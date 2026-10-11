@@ -1,0 +1,8 @@
+# GitHub Actions 의 고정해 둔 커밋(SHA)에 새 판이 나오면 알려 준다(자동으로 합치지 않는다).
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3

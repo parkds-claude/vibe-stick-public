@@ -10,8 +10,8 @@
 //   비용: 펌웨어가 1KB 남짓 커진다. 시험이 다섯을 모두 그려 본다.
 //   탈출구: 아래 MASCOT_ID 를 바꾸거나 빌드 때 -DMASCOT_ID=Robot 처럼 준다(그림은 test/host/preview.sh 로
 //           먼저 본다). 캐릭터를 줄이려면 pixel_art.cpp 의 MASCOTS 와 아래 MascotId 에서 같은 줄을 지운다.
-// D29 (2026-10-06 저녁) 기본값을 Claude Code 캐릭터(옛 D23, 이름 Claude)로 되돌린다. 자체 다섯은 그대로 둔다.
-//   이유: 사용자 판단 "클로드코드 로고가 더 매력적". 공개판에도 "비공식 팬아트, 요청 시 제거" 고지(NOTICE·README)와
+// D29 기본값을 Claude Code 캐릭터(옛 D23, 이름 Claude)로 되돌린다. 자체 다섯은 그대로 둔다.
+//   이유: 작성자의 선택(이 캐릭터가 더 어울린다고 봤다). 공개판에도 "비공식 팬아트, 요청 시 제거" 고지(NOTICE·README)와
 //         함께 넣기로 결정(같은 날 저녁). Anthropic 의 승인을 받은 것이 아니다.
 //   비용: 권리자가 요청하면 캐릭터를 빼야 한다(그때는 아래 탈출구 한 줄). 판매용으로는 쓸 수 없다.
 //   탈출구: `#define MASCOT_ID Cat` 으로 돌리고, 아래 MascotId 와 pixel_art.cpp 의 "claude" 줄을 지운다.

@@ -5,7 +5,7 @@
 #include "logic/link_state.h"
 
 // 화면. 무엇을 그릴지는 logic/screen_state, 어떻게 그릴지는 logic/screen_draw 가 정하고
-// 여기서는 그것을 LCD 에 옮기고 밝기를 다룬다(설계서 2026-10-05).
+// 여기서는 그것을 LCD 에 옮기고 밝기를 다룬다(설계서).
 namespace ui {
 
 void begin();

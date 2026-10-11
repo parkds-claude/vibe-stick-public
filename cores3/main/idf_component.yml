@@ -1,0 +1,10 @@
+# 빌드·검토한 버전에 정확히 고정한다(기본값이 바뀌는 것을 막는다 — D16 과 같은 생각).
+dependencies:
+  idf: ">=5.5"
+  m5stack/m5unified: "0.2.25"
+  m5stack/m5gfx: "0.2.32"
+  # TinyUSB 를 직접 쓴다. esp_tinyusb(포장 부품)는 마이크 기능을 빌드에서 빼 버려서 쓸 수 없다.
+  espressif/tinyusb: "0.19.0~3"
+  # 블루투스 키보드(선을 뽑았을 때, D59). StickC 판이 쓰는 NimBLE-Arduino 2.5 와 같은 API 의 ESP-IDF 용 부품이라
+  # src/ble_hid.cpp 를 고치지 않고 함께 쓴다.
+  h2zero/esp-nimble-cpp: "2.5.0"

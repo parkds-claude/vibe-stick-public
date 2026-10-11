@@ -9,12 +9,30 @@ An M5StickC Plus with the Mini JoyC HAT, turned into a **Bluetooth keyboard**. S
 
 ## ⚠️ Read first — risks
 
+**Build the firmware yourself from this repository (https://github.com/parkds-claude/vibe-stick-public) and never flash a binary from anywhere else** — a modified build is a keyboard that types whatever its author wants. There are no releases or prebuilt firmware. Security notes and how to report a problem: [SECURITY.md](SECURITY.md).
+
 This device **is a keyboard**. It sends Enter, Esc and ⌘D to the paired computer, and Enter **approves** Claude's "may I edit this file?" prompt.
 
 - **Pairing has no numeric confirmation (Just Works).** While the screen shows PAIR ME, any nearby computer can try to pair, and **the first one wins**: the device then belongs to that computer until you reset it (front + side for 3 s). An eavesdropper present at pairing time could in principle derive the link key (what it would see: Enter, Esc, ⌘D, arrows). Pair at home or at your desk; afterwards the device accepts only that one computer (one bond at a time).
 - **If you lose the device**, whoever finds it can press Enter near the paired computer, and **anyone holding it can reset the pairing** (no PIN). If it goes missing, **remove `vibe-stick` from the computer's Bluetooth settings immediately.**
 - The device cannot see the computer's screen. **Look at the screen before pressing the front button.** With an editor focused, the front button and joystick keystrokes go **into the file**. Pressing the side button (Esc) twice quickly opens Claude Code's *Rewind* dialog — Enter there **reverts files**; the device limits Esc to once per second, but if you see "Rewind", close it with the side button. More cautions (Korean): [docs/사용법.md](docs/사용법.md) "조심할 것 세 가지".
 - The Bluetooth name `vibe-stick` and the fact that it is a keyboard are always advertised.
+
+## Two builds
+
+| | StickC build (`src/`) | CoreS3 build (`cores3/`) |
+|---|---|---|
+| Hardware | M5StickC Plus + Mini JoyC HAT | M5Stack CoreS3 (touch screen) |
+| Connection | Bluetooth keyboard | **USB keyboard + USB microphone** on one cable; Bluetooth keyboard when unplugged |
+| You speak into | the computer's microphone | the device's microphone over USB — once you select it as the computer's sound input |
+| Controls | joystick + two buttons | seven touch tiles |
+| Toolchain | PlatformIO | ESP-IDF 5.5 |
+| Guide | [docs/사용법.md](docs/사용법.md) | [docs/사용법-cores3.md](docs/사용법-cores3.md) |
+
+![CoreS3 screens](docs/design/cores3-screens.png)
+*CoreS3 build: every screen, pixel-identical to the device. The icons are plain line art drawn by the build script. The mascot is the same unofficial Claude Code fan art as above (not covered by MIT — see [Mascot](#mascot)); to build with one of the original mascots instead: `cd cores3 && idf.py -B build -DMASCOT=Cat reconfigure`, then `tools/flash.sh`.*
+
+Both builds are keyboards. **Read [SECURITY.md](SECURITY.md) before flashing either one**, build the firmware yourself, and never flash a binary someone else made.
 
 ## Controls
 

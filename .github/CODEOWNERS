@@ -1,0 +1,14 @@
+# 모든 변경은 저장소의 주인이 본다. 아래는 특히 한 줄씩 읽어야 하는 곳이다(키를 내보내는 길, 굽는 도구, 공급망).
+*                                   @parkds-claude
+/.github/                           @parkds-claude
+/SECURITY.md                        @parkds-claude
+/platformio.ini                     @parkds-claude
+/cores3/dependencies.lock           @parkds-claude
+/cores3/main/idf_component.yml      @parkds-claude
+/cores3/sdkconfig.defaults          @parkds-claude
+/cores3/CMakeLists.txt              @parkds-claude
+/cores3/main/                       @parkds-claude
+/cores3/logic/art_data.cpp          @parkds-claude
+/cores3/tools/                      @parkds-claude
+/tools/                             @parkds-claude
+/src/                               @parkds-claude
