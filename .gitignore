@@ -1,4 +1,4 @@
-# PlatformIO 빌드 산출물
+# 빌드 산출물(.pio/ 는 PlatformIO 의 것이고, 호스트 시험·미리보기도 .pio/host 에 쓴다)
 .pio/
 build/
 .vscode/
@@ -19,19 +19,3 @@ secrets.h
 # 파이썬이 만드는 임시 파일
 __pycache__/
 *.pyc
-
-# CoreS3용 ESP-IDF 프로젝트(cores3/)의 산출물 — 내려받은 부품과 기기별 설정은 넣지 않는다
-# (build/ 는 위 규칙이 이미 막는다. sdkconfig.defaults 와 dependencies.lock 은 넣는다)
-cores3/managed_components/
-# 빌드 폴더는 이름이 무엇이든 넣지 않는다(build-dev, 잘못된 인자로 생긴 'build-dev -D...' 등)
-cores3/build*/
-cores3/sdkconfig
-cores3/sdkconfig.old
-# 이 컴퓨터에 꽂는 "우리 기기"의 MAC(굽는 도구가 엉뚱한 보드를 가려내는 데 쓴다 — 컴퓨터마다 따로 둔다)
-cores3/.vibe-mac
-
-# 화면 조각을 만들 때만 쓰는 재료(cores3/tools/gen_art.py). 만든 결과(cores3/logic/art_data.cpp)는 넣는다.
-# 글꼴 파일은 크고, 타일 그림과 로고는 각자 쓸 권리가 있는 것을 넣는 자리라 저장소에 넣지 않는다 — cores3/art/README.md
-cores3/art/fonts/
-cores3/art/logo/
-cores3/art/thiings/

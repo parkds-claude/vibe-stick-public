@@ -8,9 +8,11 @@ M5StickC Plus + Mini JoyC HAT 을 **블루투스 키보드**로 만들어, 맥�
 ![화면 모음](docs/design/screens.png)
 *모든 화면(기기와 같은 픽셀). 기본 마스코트는 Claude Code 캐릭터의 비공식 팬아트로 MIT 예외 — [마스코트](#마스코트) 참고.*
 
+화면이 달린 M5Stack CoreS3 판(USB 키보드 + 마이크, 터치 타일 일곱)은 따로 있다: https://github.com/parkds-claude/vibe-stick-cores3
+
 ## ⚠️ 먼저 읽을 것 — 위험 안내
 
-**펌웨어는 이 저장소(https://github.com/parkds-claude/vibe-stick-public)의 소스로 직접 빌드하고, 다른 곳에서 받은 바이너리는 굽지 않는다** — 고친 펌웨어는 만든 사람이 원하는 것을 치는 키보드다. 배포판(Release)과 빌드된 펌웨어는 없다. 보안에 대한 안내와 문제를 알리는 길: [SECURITY.md](SECURITY.md).
+**펌웨어는 이 저장소(<https://github.com/parkds-claude/vibe-stick-public>)의 소스로 직접 빌드하고, 다른 곳에서 받은 바이너리는 굽지 않는다** — 고친 펌웨어는 만든 사람이 원하는 것을 치는 키보드다. 배포판(Release)과 빌드된 펌웨어는 없다. 보안에 대한 안내와 문제를 알리는 길: [SECURITY.md](SECURITY.md).
 
 이 기기는 **키보드**다. 짝 맺은 컴퓨터에 Enter·Esc·⌘D 를 보낸다. 그리고 Enter 는 Claude 의 "이 파일 고쳐도 돼?" 창을 **승인**한다.
 
@@ -19,35 +21,6 @@ M5StickC Plus + Mini JoyC HAT 을 **블루투스 키보드**로 만들어, 맥�
 - 기기는 컴퓨터 화면을 모른다. **앞 버튼을 누르기 전에 컴퓨터 화면을 본다.** 편집기(파일)를 클릭한 상태면 앞 버튼·조이스틱이 **파일 안에 글자로 들어간다.** 옆 버튼(Esc)을 빠르게 두 번 누르면 Claude Code 의 *되감기(Rewind)* 창이 열리고 거기서 Enter 는 **파일을 되돌린다** — 기기가 1초에 한 번으로 막고 있지만, "Rewind" 가 보이면 옆 버튼으로 닫는다. 더 자세한 주의는 [docs/사용법.md](docs/사용법.md) "조심할 것 세 가지".
 - 블루투스 이름 `vibe-stick` 과 "키보드"라는 사실은 광고로 늘 보인다.
 
-## 두 가지 판
-
-| | 조이스틱 판 (`src/`) | 화면 판 (`cores3/`) |
-|---|---|---|
-| 기기 | M5StickC Plus + Mini JoyC HAT | M5Stack CoreS3 (터치 화면) |
-| 연결 | 블루투스 키보드 | 선 하나로 **USB 키보드 + USB 마이크**, 선을 뽑으면 블루투스 키보드 |
-| 말을 듣는 곳 | 컴퓨터의 마이크 | 기기의 마이크(USB 로 들어간다 — 컴퓨터의 소리 입력으로 골라야 한다) |
-| 조작 | 조이스틱 + 버튼 둘 | 터치 타일 일곱 |
-| 빌드 도구 | PlatformIO | ESP-IDF 5.5 |
-| 사용법 | [docs/사용법.md](docs/사용법.md) | [docs/사용법-cores3.md](docs/사용법-cores3.md) |
-
-![화면 판의 화면](docs/design/cores3-screens.png)
-*화면 판의 모든 장면(기기 픽셀 그대로). 아이콘은 빌드 스크립트가 그린 선 그림이다. 캐릭터는 위와 같은 비공식 Claude Code 팬 아트다(MIT 의 예외 — [마스코트](#마스코트) 참고). 자체 캐릭터로 빌드하려면 `cd cores3 && idf.py -B build -DMASCOT=Cat reconfigure` 뒤 `tools/flash.sh`.*
-
-두 판 모두 키보드다. **굽기 전에 [SECURITY.md](SECURITY.md) 를 읽고**, 펌웨어는 직접 빌드하고, 남이 만든 바이너리는 굽지 말 것.
-
-## 화면 판 한눈에 — 클로드에 리모컨을 달았다 (비공식)
-
-- **클로드에 리모컨을 달았다.** 누르고 말로 시킨다 — 키보드 없이. 선을 뽑아도 블루투스로 붙는다(그때는 버튼만 간다).
-- **누르고, 말로 시킨다.** 커서를 Claude 입력창에 두고 말하면 VS Code 의 Claude Code 가 받아쓴다. OK 를 누르면 그대로 보내진다.
-- **"고쳐도 돼?" 엄지로 답한다.** 맥 화면을 보고 허락이면 OK, 아니다 싶으면 ✕ — 키보드에 손이 안 간다.
-- **선을 뽑고 멀리서 눌렀다.** 만든 사람이 20m 떨어져 눌러 봤다. 버튼은 닿는다 — 다만 물음은 기기에 뜨지 않으니 맥 화면을 보고 누른다. (닿는 거리는 곳에 따라 다르다.)
-- **선을 꽂으면 기기가 마이크다.** 맥의 소리 입력에서 `vibe-stick mic` 을 고르면 기기에 대고 말한다 — 마이크 없는 맥에서도. 무선일 땐 맥 쪽 마이크(맥의 마이크나 이어폰)가 듣는다.
-- **이 네모의 정체, M5Stack CoreS3.** 54mm 정사각에 2인치 터치 화면. 마이크 · 스피커가 들어 있다. 배터리(500mAh)는 뒤에 붙는 받침에 들어 있다 — 함께 오는 DinBase 에도 들어 있고, 만든 사람은 그 자리에 더 얇은 M5GO Battery Bottom3 를 달았다. (배터리가 없는 CoreS3 SE 로는 확인하지 않았다.)
-- **누르는 곳은 화면에 일곱 군데.** Talk · OK · Back · Next 큰 타일 넷, 그 위에 위 · 아래 · 취소(▲ ▼ ✕) 작은 타일 셋.
-- **이 리모컨, 오픈소스다**(MIT — 기본 캐릭터만 예외, [마스코트](#마스코트) 참고). 납땜 없이, 이 소스로 펌웨어를 직접 빌드해 구우면 된다(완성된 펌웨어 파일은 배포하지 않는다). 만드는 법은 [docs/사용법-cores3.md](docs/사용법-cores3.md).
-
-*Anthropic 과 무관한 비공식 개인 프로젝트다 — 맨 아래 [비공식 프로젝트](#비공식-프로젝트). 아래 「조작」부터 「개발」까지는 조이스틱 판의 설명이다.*
-
 ## 조작
 
 | 조작 | 동작 | 화면 |
@@ -55,7 +28,7 @@ M5StickC Plus + Mini JoyC HAT 을 **블루투스 키보드**로 만들어, 맥�
 | 조이스틱 **누르기** | 말하기 켜고 끄기(⌘D). 딸깍 한 번이면 된다 | TALK |
 | **앞 큰 버튼** | Enter — 보내기 · 허락 · 선택 확정 | OK! |
 | **옆 버튼** | Esc — 취소 · 거부 (1초에 한 번) | NOPE |
-| 조이스틱 **오른쪽 / 왼쪽** | ⌘` / ⇧⌘` — 다음 / 이전 VS Code 창 | NEXT / BACK |
+| 조이스틱 **오른쪽 / 왼쪽** | ⌘\` / ⇧⌘\` — 다음 / 이전 VS Code 창 | NEXT / BACK |
 | 조이스틱 **위 / 아래** | ↑ ↓ — 선택지 고르기 | UP / DOWN |
 | 앞 + 옆 **3초** | 짝 정보 지우고 다시 시작 | BYE! |
 
@@ -63,7 +36,7 @@ M5StickC Plus + Mini JoyC HAT 을 **블루투스 키보드**로 만들어, 맥�
 
 ## 전제와 한계 (솔직하게)
 
-- **맥 + VS Code + Claude Code 확장의 기본 단축키 전용**이다. ⌘D(받아쓰기)와 ⌘`(같은 앱의 다음 창)를 보낸다. 단축키를 바꿨으면 그대로는 안 맞는다. Windows 는 Ctrl+D(말하기)만 보내고 창 이동은 없다(`src/config.h` 의 `HOST`). Linux 는 아직 없다.
+- **맥 + VS Code + Claude Code 확장의 기본 단축키 전용**이다. ⌘D(받아쓰기)와 ⌘\`(같은 앱의 다음 창)를 보낸다. 단축키를 바꿨으면 그대로는 안 맞는다. Windows 는 Ctrl+D(말하기)만 보내고 창 이동은 없다(`src/config.h` 의 `HOST`). Linux 는 아직 없다.
 - **기기는 녹음이 켜져 있는지 모른다.** TALK 는 "내가 ⌘D 를 보낸 횟수"로 추측한 것이다. 컴퓨터가 15초 조용하면 스스로 끄거나, 다른 창에서 ⌘D 가 다른 일을 하면 화면과 실제가 어긋난다. **컴퓨터 화면의 마이크 표시가 기준**이다.
 - 잘못 받아써진 글은 기기로 지울 수 없다(키보드로 지우거나 말로 고쳐 달라고 한다).
 - 배터리는 120mAh 로 작다. 30초 뒤 화면이 어두워질 뿐 절전은 없다(수명 실측 전). 책상에서는 USB 를 꽂아 둔다.
@@ -139,7 +112,7 @@ test/host/compare_refactor.sh    # 구조 정리 전후의 동작이 같은지 �
 | 삐삐 | `Robot` | 안테나 달린 로봇 |
 | 새싹이 | `Sprout` | 머리에 새싹 난 찹쌀떡 |
 
-바꾸려면 `src/logic/pixel_art.h` 의 `MASCOT_ID` 를 고치거나 `PLATFORMIO_BUILD_FLAGS="-DMASCOT_ID=Cat" pio run …` 처럼 붙인다. 굽기 전에 `test/host/preview.sh` 로 그림부터 본다. 그림 데이터는 `src/logic/pixel_art.cpp` 의 글자 격자라 새 마스코트를 그려 넣기도 쉽다. 다섯 모습: [docs/design/mascots.png](docs/design/mascots.png)
+바꾸려면 `src/logic/pixel_art.h` 의 `MASCOT_ID` 를 고치거나 `PLATFORMIO_BUILD_FLAGS="-DMASCOT_ID=Cat" pio run …` 처럼 붙인다. 굽기 전에 `test/host/preview.sh` 로 그림부터 본다. 그림 데이터는 `src/logic/pixel_art.cpp` 의 글자 격자라 새 마스코트를 그려 넣기도 쉽다. 여섯 모습(자체 다섯 + 기본 캐릭터): [docs/design/mascots.png](docs/design/mascots.png) — 맨 아랫줄이 기본 캐릭터(팬아트, MIT 예외)다.
 
 ## 비공식 프로젝트
 

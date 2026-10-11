@@ -3,12 +3,5 @@
 /.github/                           @parkds-claude
 /SECURITY.md                        @parkds-claude
 /platformio.ini                     @parkds-claude
-/cores3/dependencies.lock           @parkds-claude
-/cores3/main/idf_component.yml      @parkds-claude
-/cores3/sdkconfig.defaults          @parkds-claude
-/cores3/CMakeLists.txt              @parkds-claude
-/cores3/main/                       @parkds-claude
-/cores3/logic/art_data.cpp          @parkds-claude
-/cores3/tools/                      @parkds-claude
 /tools/                             @parkds-claude
 /src/                               @parkds-claude

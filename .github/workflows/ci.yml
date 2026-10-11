@@ -4,7 +4,7 @@
 #   - 권한은 읽기뿐이다(permissions: contents: read). 비밀 값(secrets)을 쓰지 않는다 — 누구의 PR 이 돌아도 잃을 것이 없다.
 #   - pull_request 로만 돈다. pull_request_target 은 쓰지 않는다(PR 의 코드가 저장소의 권한으로 돌게 된다).
 #   - 남의 액션은 꼬리표(v4)가 아니라 커밋 번호로 고정한다 — 꼬리표는 주인이 다른 커밋으로 옮길 수 있다.
-#     새 판은 .github/dependabot.yml 이 알려 준다. ESP-IDF 그림도 지문(sha256)으로 고정한다.
+#     새 판은 .github/dependabot.yml 이 알려 준다. 컨테이너 그림을 쓰는 일은 그 그림도 지문(sha256)으로 고정한다.
 #   - 내려받은 저장소에 토큰을 남기지 않는다(persist-credentials: false).
 name: ci
 on:
@@ -38,47 +38,3 @@ jobs:
       - run: pip install platformio==6.1.19
       - name: build (no upload)
         run: pio run -e stickc
-  cores3-host-tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
-        with:
-          python-version: "3.11"
-      - run: pip install pyserial==3.5
-      - name: host tests (CoreS3 — touch, screen, gates, tools)
-        run: sh cores3/test/host/run.sh
-      # 개발판(DEV_BUILD=1)은 컴퓨터가 키를 치게 할 수 있다. 그것이 "기본값"이 되는 변경은 여기서 막는다:
-      # 굽는 도구는 빌드 명령에 -DDEV_BUILD=1 이 있는지만 보므로, 기본값을 바꾸는 한 줄은 그 확인을 지나친다.
-      - name: the default build is not the development build
-        run: |
-          test "$(grep -c '^#define DEV_BUILD 0$' cores3/main/config.h)" = 1
-          test "$(grep -rn --include='*.h' --include='*.c' --include='*.cpp' --include='CMakeLists.txt' -E '(define|D)[ ]*DEV_BUILD[ =]*1' cores3 src | grep -v 'cores3/main/CMakeLists.txt' | wc -l)" = 0
-          grep -q 'if(VIBE_DEV)' cores3/main/CMakeLists.txt
-  cores3-firmware-build:
-    # 공개 저장소(와 그 포크)에서만 돈다. 비공개 저장소에서는 건너뛴다 — ESP-IDF 를 통째로 빌드하는 일이라
-    # 비공개 저장소의 무료 실행 시간을 금방 다 쓴다.
-    if: ${{ !github.event.repository.private }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    container:
-      # espressif/idf:v5.5.4
-      image: espressif/idf@sha256:b9f2d6ea1c19e0c9f7959bdb74a9e3c775642f9d0f3b841937c5fa3363db892b
-    steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
-        with:
-          persist-credentials: false
-      - name: build the default firmware (no upload)
-        shell: bash
-        run: |
-          . "$IDF_PATH/export.sh"
-          idf.py -C cores3 -B cores3/build build
-      # 아무 옵션 없이 빌드한 것이 개발판이면 안 된다. 평소 판은 컴파일 명령에 DEV_BUILD 가 한 번도 나오지 않는다
-      # (기본값 0 은 config.h 안에 있다) — 어느 CMake 파일이 어떤 꼴로든 그것을 켜면 여기서 걸린다.
-      - name: the default firmware is not the development build
-        shell: bash
-        run: |
-          ! grep -q 'DEV_BUILD' cores3/build/compile_commands.json

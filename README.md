@@ -7,6 +7,8 @@ An M5StickC Plus with the Mini JoyC HAT, turned into a **Bluetooth keyboard**. S
 ![Screens](docs/design/screens.png)
 *All screens, pixel-identical to the device. Default mascot = unofficial Claude Code fan art, not covered by MIT — see [Mascot](#mascot).*
 
+The touch-screen build for the M5Stack CoreS3 (USB keyboard + microphone, seven touch tiles) is a separate project: https://github.com/parkds-claude/vibe-stick-cores3
+
 ## ⚠️ Read first — risks
 
 **Build the firmware yourself from this repository (https://github.com/parkds-claude/vibe-stick-public) and never flash a binary from anywhere else** — a modified build is a keyboard that types whatever its author wants. There are no releases or prebuilt firmware. Security notes and how to report a problem: [SECURITY.md](SECURITY.md).
@@ -18,35 +20,6 @@ This device **is a keyboard**. It sends Enter, Esc and ⌘D to the paired comput
 - The device cannot see the computer's screen. **Look at the screen before pressing the front button.** With an editor focused, the front button and joystick keystrokes go **into the file**. Pressing the side button (Esc) twice quickly opens Claude Code's *Rewind* dialog — Enter there **reverts files**; the device limits Esc to once per second, but if you see "Rewind", close it with the side button. More cautions (Korean): [docs/사용법.md](docs/사용법.md) "조심할 것 세 가지".
 - The Bluetooth name `vibe-stick` and the fact that it is a keyboard are always advertised.
 
-## Two builds
-
-| | StickC build (`src/`) | CoreS3 build (`cores3/`) |
-|---|---|---|
-| Hardware | M5StickC Plus + Mini JoyC HAT | M5Stack CoreS3 (touch screen) |
-| Connection | Bluetooth keyboard | **USB keyboard + USB microphone** on one cable; Bluetooth keyboard when unplugged |
-| You speak into | the computer's microphone | the device's microphone over USB — once you select it as the computer's sound input |
-| Controls | joystick + two buttons | seven touch tiles |
-| Toolchain | PlatformIO | ESP-IDF 5.5 |
-| Guide | [docs/사용법.md](docs/사용법.md) | [docs/사용법-cores3.md](docs/사용법-cores3.md) |
-
-![CoreS3 screens](docs/design/cores3-screens.png)
-*CoreS3 build: every screen, pixel-identical to the device. The icons are plain line art drawn by the build script. The mascot is the same unofficial Claude Code fan art as above (not covered by MIT — see [Mascot](#mascot)); to build with one of the original mascots instead: `cd cores3 && idf.py -B build -DMASCOT=Cat reconfigure`, then `tools/flash.sh`.*
-
-Both builds are keyboards. **Read [SECURITY.md](SECURITY.md) before flashing either one**, build the firmware yourself, and never flash a binary someone else made.
-
-## The CoreS3 build at a glance — a remote control for Claude Code (unofficial)
-
-- **A remote control for Claude Code.** Press, then tell it what to do by voice — no keyboard. Unplug the cable and it carries on over Bluetooth (then only the button presses are sent).
-- **Press, then say it.** With the cursor in Claude Code's input box, what you say is transcribed by Claude Code in VS Code. Press OK and it is sent as is.
-- **"May I edit this?" — answer with your thumb.** Read the prompt on the Mac's screen: OK to allow, ✕ if not. No reaching for the keyboard.
-- **Unplugged, and pressed from a distance.** The author tried it from 20 m away and the button presses still got through. The prompt is not shown on the device, though — look at the Mac's screen before you press. (Range varies with the surroundings.)
-- **Plug it in and the device is the microphone.** Pick `vibe-stick mic` as the Mac's sound input and you speak into the device — even on a Mac with no microphone. Over Bluetooth, the listening is done on the Mac's side — its own microphone or your earphones.
-- **Meet the little square: an M5Stack CoreS3.** A 54 mm square with a 2-inch touch screen; microphone and speaker built in. The 500 mAh battery sits in the base on the back — the DinBase the CoreS3 ships with has one, and the author's unit has the thinner M5GO Battery Bottom3 (also 500 mAh) there instead. (Not tried on the CoreS3 SE, which has no battery.)
-- **Seven places to press on the screen.** Four large tiles — Talk · OK · Back · Next — and three small ones above them: ▲ · ▼ · ✕ (up, down, cancel).
-- **And this remote is open source** (MIT, except the default mascot — see [Mascot](#mascot)). No soldering: build the firmware yourself from this source and flash it (no prebuilt firmware is published). How to build it: [docs/사용법-cores3.md](docs/사용법-cores3.md) (Korean).
-
-*An unofficial hobby project, not affiliated with Anthropic — see [Unofficial](#unofficial). The sections from "Controls" through "Development" below describe the StickC build.*
-
 ## Controls
 
 | Control | Action | Screen |
@@ -54,7 +27,7 @@ Both builds are keyboards. **Read [SECURITY.md](SECURITY.md) before flashing eit
 | Joystick **press** | Toggle dictation (⌘D) — one click | TALK |
 | **Front button** | Enter — send · allow · confirm | OK! |
 | **Side button** | Esc — cancel · deny (max once per second) | NOPE |
-| Joystick **right / left** | ⌘` / ⇧⌘` — next / previous VS Code window | NEXT / BACK |
+| Joystick **right / left** | ⌘\` / ⇧⌘\` — next / previous VS Code window | NEXT / BACK |
 | Joystick **up / down** | ↑ ↓ — move between choices | UP / DOWN |
 | Front + side for **3 s** | Forget the pairing and restart | BYE! |
 
@@ -62,7 +35,7 @@ Usage, pairing and troubleshooting (Korean): [docs/사용법.md](docs/사용법.
 
 ## Assumptions and limitations
 
-- **macOS + VS Code + the Claude Code extension's default shortcuts only.** It sends ⌘D (dictation) and ⌘` (next window of the same app). If you remapped those, it will not match. Windows gets Ctrl+D only, no window switching (`HOST` in `src/config.h`). No Linux yet.
+- **macOS + VS Code + the Claude Code extension's default shortcuts only.** It sends ⌘D (dictation) and ⌘\` (next window of the same app). If you remapped those, it will not match. Windows gets Ctrl+D only, no window switching (`HOST` in `src/config.h`). No Linux yet.
 - **The device does not know whether recording is on.** TALK is a guess from how many ⌘D it sent. If the computer stops recording by itself after 15 s of silence, or ⌘D does something else in another window, the screen and reality diverge. **The microphone indicator on the computer is the truth.**
 - Misrecognized text cannot be deleted from the device (use the keyboard, or ask Claude to fix it).
 - The battery is small (120 mAh). The screen dims after 30 s; there is no deep sleep yet (runtime not measured). Keep it on USB at a desk.
@@ -138,7 +111,7 @@ The default mascot is an **unofficial pixel-art rendition of the Claude Code cha
 | Robot | `Robot` | robot with an antenna |
 | Sprout | `Sprout` | mochi with a sprout |
 
-Change `MASCOT_ID` in `src/logic/pixel_art.h` or pass `PLATFORMIO_BUILD_FLAGS="-DMASCOT_ID=Cat" pio run …`. Preview first with `test/host/preview.sh`. Mascot data is a character grid in `src/logic/pixel_art.cpp`, so drawing your own is easy. All five: [docs/design/mascots.png](docs/design/mascots.png)
+Change `MASCOT_ID` in `src/logic/pixel_art.h` or pass `PLATFORMIO_BUILD_FLAGS="-DMASCOT_ID=Cat" pio run …`. Preview first with `test/host/preview.sh`. Mascot data is a character grid in `src/logic/pixel_art.cpp`, so drawing your own is easy. All six — the five originals and the default: [docs/design/mascots.png](docs/design/mascots.png) (the bottom row is the default fan-art mascot, not MIT).
 
 ## Unofficial
 
